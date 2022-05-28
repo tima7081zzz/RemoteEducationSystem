@@ -1,0 +1,12 @@
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\bin\Debug\net6.0\Services.deps.json
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\bin\Debug\net6.0\Services.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\bin\Debug\net6.0\ref\Services.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\bin\Debug\net6.0\Services.pdb
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.csproj.AssemblyReference.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.AssemblyInfoInputs.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.AssemblyInfo.cs
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.csproj.CoreCompileInputs.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\ref\Services.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.pdb
