@@ -34,7 +34,6 @@ public class UserRepository : IUserRepository
     {
         return await QueryExecutionBuilder
             .ForConnectionManager(_connectionManager)
-            .ReadOnly()
             .CancelWhen(ct)
             .UseQuery(@"
                 insert into [User](Email, [Password], Fullname, [Role])
@@ -45,5 +44,19 @@ public class UserRepository : IUserRepository
             .AddParameter("@fullname", userModel.Fullname, DbType.String)
             .AddParameter("@role", userModel.Role, DbType.Byte)
             .QuerySingleOrDefault<int>();
+    }
+
+    public async Task<UserDto> GetUserByIdAsync(int userId, CancellationToken ct)
+    {
+        return await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .ReadOnly()
+            .CancelWhen(ct)
+            .UseQuery(@"
+                select Id, [Role], Fullname, Email
+                from [User] 
+                where Id = @userId")
+            .AddParameter("@userId", userId, DbType.Int32)
+            .QuerySingleOrDefault<UserDto>();
     }
 }

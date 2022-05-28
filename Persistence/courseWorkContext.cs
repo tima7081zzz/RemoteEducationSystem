@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Domain
 {
-    public partial class courseWorkContext : DbContext
+    public partial class courseWorkContext : DbContext, IcourseWorkDbContext
     {
         public courseWorkContext()
         {

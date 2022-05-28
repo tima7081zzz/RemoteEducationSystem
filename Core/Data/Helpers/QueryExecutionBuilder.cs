@@ -69,7 +69,18 @@ public class QueryExecutionBuilder
     public async Task<T> QuerySingleOrDefault<T>()
     {
         using var connectionScope = PrepareConnection();
-        return await connectionScope.DbConnection.QuerySingleOrDefaultAsync<T>(PrepareCommand(connectionScope));
+        try
+        {
+            var result = await connectionScope.DbConnection.QuerySingleOrDefaultAsync<T>(PrepareCommand(connectionScope));
+            connectionScope.Commit();
+
+            return result;
+        }
+        catch
+        {
+            connectionScope.RollBack();
+            throw;
+        }
     }
 
     public async Task ExecuteAsync()
