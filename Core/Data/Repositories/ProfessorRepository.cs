@@ -65,4 +65,37 @@ public class ProfessorRepository : IProfessorRepository
             .AddParameter("@maxGrade", activityModel.MaxGrade, DbType.Int32)
             .ExecuteAsync();
     }
+
+    public async Task AddResourceToSubjectAsync(CreateResourceDto resourceModel, CancellationToken ct)
+    {
+        await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .CancelWhen(ct)
+            .UseQuery(@"
+                insert into [Resource]([Type], [Name], SubjectId)
+                output inserted.Id
+                values(@type, @name, @subjectId)")
+            .AddParameter("@type", resourceModel.Type, DbType.Byte)
+            .AddParameter("@subjectId", resourceModel.SubjectId, DbType.Int32)
+            .AddParameter("@name", resourceModel.Name, DbType.String)
+            .ExecuteAsync();
+    }
+
+    public async Task RateStudentsActivityAsync(int studentId, int activityId, int grade, CancellationToken ct)
+    {
+        await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .CancelWhen(ct)
+            .UseQuery(@"
+                update User_Activity
+                set Grade = @grade
+                from User_Activity ua
+                join [User] u on ua.UserId = u.Id
+                where UserId = @studentId and u.[Role] = 2
+                    and ua.ActivityId = @activityId")
+            .AddParameter("@studentId", studentId, DbType.Int32)
+            .AddParameter("@grade", grade, DbType.Int32)
+            .AddParameter("@activityId", activityId, DbType.Int32)
+            .ExecuteAsync();
+    }
 }

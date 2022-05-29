@@ -6,4 +6,5 @@ public enum EActivityType : byte
     Lab = 1,
     Report = 2,
     CourseProject = 3,
+    Test = 4,
 }

@@ -36,4 +36,17 @@ public class ProfessorService : IProfessorService
         //TODO: add validations
         await _professorRepository.AddActivityToSubject(activityModel, ct);
     }
+
+    public async Task AddResourceToSubjectAsync(CreateResourceDto resourceModel, CancellationToken ct)
+    {
+        //TODO: add validations
+        await _professorRepository.AddResourceToSubjectAsync(resourceModel, ct);
+    }
+
+    public async Task RateStudentsActivityAsync(int studentId, int activityId, int grade, CancellationToken ct)
+    {
+        //TODO: add validations
+        await _professorRepository.RateStudentsActivityAsync(studentId, activityId, grade, ct);
+    }
+
 }

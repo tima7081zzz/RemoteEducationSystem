@@ -10,6 +10,7 @@ namespace Domain
         public int ActivityId { get; set; }
         public int Grade { get; set; }
         public DateTime Date { get; set; }
+        public bool IsDone { get; set; }
 
         public virtual Activity Activity { get; set; } = null!;
         public virtual User User { get; set; } = null!;
