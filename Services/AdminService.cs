@@ -18,7 +18,7 @@ public class AdminService : IAdminService
         _subjectRepository = subjectRepository;
     }
 
-    public async Task<int> RegisterUserAsync(CreateUserDto userModel, CancellationToken ct)
+    public async Task<UserDto> AddUserAsync(CreateUserDto userModel, CancellationToken ct)
     {
         var user = await _userRepository.GetUserByEmailAndPasswordAsync(userModel.Email, userModel.Password, ct);
         if (user != null)
@@ -26,7 +26,18 @@ public class AdminService : IAdminService
             throw new AlreadyExistsException(nameof(User), userModel.Email);
         }
 
-        return await _userRepository.CreateUserAsync(userModel, ct);
+        var userId = await _userRepository.CreateUserAsync(userModel, ct);
+        return await _userRepository.GetUserByIdAsync(userId, ct);
+    }
+
+    public async Task<UserDto?> GetUserAsync(LoginUserDto loginUserModel, CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(loginUserModel.Email) || string.IsNullOrWhiteSpace(loginUserModel.Password))
+        {
+            return null;
+        }
+
+        return await _userRepository.GetUserByEmailAndPasswordAsync(loginUserModel.Email, loginUserModel.Password, ct);
     }
 
     public async Task<int> CreateSubjectAsync(string name, CancellationToken ct)

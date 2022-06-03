@@ -15,7 +15,7 @@ public class UserRepository : IUserRepository
         _connectionManager = connectionManager;
     }
 
-    public async Task<UserDto> GetUserByEmailAndPasswordAsync(string email, string password, CancellationToken ct)
+    public async Task<UserDto?> GetUserByEmailAndPasswordAsync(string email, string password, CancellationToken ct)
     {
         return await QueryExecutionBuilder
             .ForConnectionManager(_connectionManager)

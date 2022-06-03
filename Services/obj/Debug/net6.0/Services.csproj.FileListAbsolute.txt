@@ -10,3 +10,8 @@ D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Ser
 D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.dll
 D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\ref\Services.dll
 D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.pdb
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\bin\Debug\net6.0\Data.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\bin\Debug\net6.0\Domain.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\bin\Debug\net6.0\Data.pdb
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\bin\Debug\net6.0\Domain.pdb
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Services\obj\Debug\net6.0\Services.csproj.CopyComplete

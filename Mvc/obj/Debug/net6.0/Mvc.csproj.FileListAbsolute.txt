@@ -1,0 +1,9 @@
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Mvc\obj\Debug\net6.0\Mvc.csproj.AssemblyReference.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Mvc\obj\Debug\net6.0\Mvc.GeneratedMSBuildEditorConfig.editorconfig
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Mvc\obj\Debug\net6.0\Mvc.AssemblyInfoInputs.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Mvc\obj\Debug\net6.0\Mvc.AssemblyInfo.cs
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Mvc\obj\Debug\net6.0\Mvc.csproj.CoreCompileInputs.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Mvc\obj\Debug\net6.0\Mvc.MvcApplicationPartsAssemblyInfo.cs
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Mvc\obj\Debug\net6.0\Mvc.MvcApplicationPartsAssemblyInfo.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Mvc\obj\Debug\net6.0\Mvc.RazorAssemblyInfo.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Mvc\obj\Debug\net6.0\Mvc.RazorAssemblyInfo.cs
