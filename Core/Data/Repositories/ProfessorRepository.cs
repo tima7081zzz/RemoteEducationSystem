@@ -17,28 +17,6 @@ public class ProfessorRepository : IProfessorRepository
         _connectionManager = connectionManager;
     }
 
-    /*public async Task<int> CreateGroupAsync(string name, int userId, CancellationToken ct)
-    {
-        return await QueryExecutionBuilder
-            .ForConnectionManager(_connectionManager)
-            .CancelWhen(ct)
-            .UseQuery(@"
-                declare @GroupID table (ID int)
-
-                insert into Professor(UserId, SubjectId)
-                output inserted.Id into @GroupID
-                values(@userId, @subjectId)
-                
-                update Professor
-                set GroupId = (select ID from @GroupID)
-                where UserId = @userId
-                
-                select ID from @GroupID")
-            .AddParameter("@name", name, DbType.String)
-            .AddParameter("@userId", userId, DbType.Int32)
-            .QuerySingleOrDefault<int>();
-    }*/
-
     public async Task<int> CreateGroupAsync(string name, int userId, CancellationToken ct)
     {
         return await QueryExecutionBuilder
@@ -46,6 +24,7 @@ public class ProfessorRepository : IProfessorRepository
             .CancelWhen(ct)
             .UseQuery(@"
                 insert into [Group]([Name])
+                output inserted.Id
                 values(@name)")
             .AddParameter("@name", name, DbType.String)
             .AddParameter("@userId", userId, DbType.Int32)
@@ -75,7 +54,7 @@ public class ProfessorRepository : IProfessorRepository
                 select * 
                 from [Group] g
                 join Professor p on p.GroupId = g.Id
-                where p.Id = @professorId")
+                where p.UserId = @professorId")
             .AddParameter("@professorId", professorId, DbType.Int32)
             .QueryAsync<GroupDto>();
     }
@@ -126,6 +105,19 @@ public class ProfessorRepository : IProfessorRepository
             .AddParameter("@studentId", studentId, DbType.Int32)
             .AddParameter("@grade", grade, DbType.Int32)
             .AddParameter("@activityId", activityId, DbType.Int32)
+            .ExecuteAsync();
+    }
+
+    public async Task SetProfessorForGroupAsync(int groupId, int professorId, CancellationToken ct)
+    {
+        await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .CancelWhen(ct)
+            .UseQuery(@"
+                insert into Professor(UserId, GroupId)
+                values(@professorId, @groupId)")
+            .AddParameter("@groupId", groupId, DbType.Int32)
+            .AddParameter("@professorId", professorId, DbType.Int32)
             .ExecuteAsync();
     }
 }

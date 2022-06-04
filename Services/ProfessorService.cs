@@ -22,7 +22,10 @@ public class ProfessorService : IProfessorService
             throw new EmptyFieldException(nameof(name));
         }
 
-        return await _professorRepository.CreateGroupAsync(name, userId, ct);
+        var groupId = await _professorRepository.CreateGroupAsync(name, userId, ct);
+        await _professorRepository.SetProfessorForGroupAsync(groupId, userId, ct);
+
+        return groupId;
     }
 
     public async Task AddUserToGroupAsync(int userId, int groupId, CancellationToken ct)
