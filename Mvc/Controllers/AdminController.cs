@@ -1,11 +1,6 @@
-using courseWork.Models;
 using Data.DTO;
-using Data.Helpers;
-using Domain.Enums;
-using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Services;
 using Services.Interfaces;
 
 namespace courseWork.Controllers;
