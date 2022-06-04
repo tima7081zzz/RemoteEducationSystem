@@ -1,4 +1,5 @@
 using Data.DTO;
+using Data.DTO.Create;
 using Data.Interfaces.Repositories;
 using Domain;
 using Domain.Enums;
@@ -67,6 +68,36 @@ public class AdminService : IAdminService
         //TODO: add checking of existing this user for this subject
         //add all validations
 
-        return await _subjectRepository.SetProfessorForSubject(userId, subjectId, ct);
+        return await _subjectRepository.SetProfessorForSubjectAsync(userId, subjectId, ct);
+    }
+
+    public async Task<IEnumerable<UserDto>> GetAllUsersAsync(int currentUserId, CancellationToken ct)
+    {
+        await ValidateUserAsync(currentUserId, ct);
+
+        return await _userRepository.GetAllUsersAsync(ct);
+    }
+
+    public async Task<IEnumerable<ResourceDto>> GetAllResourcesAsync(int currentUserId, CancellationToken ct)
+    {
+        await ValidateUserAsync(currentUserId, ct);
+
+        return await _subjectRepository.GetAllResourcesAsync(ct);
+    }
+
+    public async Task<IEnumerable<CreateActivityDto>> GetAllActivitiesAsync(int currentUserId, CancellationToken ct)
+    {
+        await ValidateUserAsync(currentUserId, ct);
+
+        return await _subjectRepository.GetAllActivitiesAsync(ct);
+    }
+
+    private async Task ValidateUserAsync(int currentUserId, CancellationToken ct)
+    {
+        var currentUser = await _userRepository.GetUserByIdAsync(currentUserId, ct);
+        if (currentUser.Role != EUserRole.Admin)
+        {
+            throw new WrongOperationException(nameof(User), currentUser.Role);
+        }
     }
 }

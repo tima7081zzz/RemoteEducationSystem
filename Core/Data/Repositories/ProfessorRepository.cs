@@ -1,5 +1,6 @@
 using System.Data;
 using Data.DTO;
+using Data.DTO.Create;
 using Data.Helpers;
 using Data.Interfaces;
 using Data.Interfaces.Repositories;
@@ -50,7 +51,7 @@ public class ProfessorRepository : IProfessorRepository
             .ExecuteAsync();
     }
 
-    public async Task AddActivityToSubject(ActivityDto activityModel, CancellationToken ct)
+    public async Task AddActivityToSubject(CreateActivityDto createActivityModel, CancellationToken ct)
     {
         await QueryExecutionBuilder
             .ForConnectionManager(_connectionManager)
@@ -59,10 +60,10 @@ public class ProfessorRepository : IProfessorRepository
                 insert into Activity([Type], [Name], MaxGrade, SubjectId)
                 output inserted.Id
                 values(@type, @name, @maxGrade, @subjectId)")
-            .AddParameter("@subjectId", activityModel.SubjectId, DbType.Int32)
-            .AddParameter("@name", activityModel.Name, DbType.String)
-            .AddParameter("@type", activityModel.Type, DbType.Byte)
-            .AddParameter("@maxGrade", activityModel.MaxGrade, DbType.Int32)
+            .AddParameter("@subjectId", createActivityModel.SubjectId, DbType.Int32)
+            .AddParameter("@name", createActivityModel.Name, DbType.String)
+            .AddParameter("@type", createActivityModel.Type, DbType.Byte)
+            .AddParameter("@maxGrade", createActivityModel.MaxGrade, DbType.Int32)
             .ExecuteAsync();
     }
 

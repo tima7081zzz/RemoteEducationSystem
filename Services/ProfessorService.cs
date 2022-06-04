@@ -1,4 +1,5 @@
 using Data.DTO;
+using Data.DTO.Create;
 using Data.Interfaces.Repositories;
 using Services.Common.Exceptions;
 using Services.Interfaces;
@@ -31,10 +32,10 @@ public class ProfessorService : IProfessorService
         await _professorRepository.AddUserToGroupAsync(userId, groupId, ct);
     }
 
-    public async Task AddActivityToSubject(int userId, ActivityDto activityModel, CancellationToken ct)
+    public async Task AddActivityToSubject(int userId, CreateActivityDto createActivityModel, CancellationToken ct)
     {
         //TODO: add validations
-        await _professorRepository.AddActivityToSubject(activityModel, ct);
+        await _professorRepository.AddActivityToSubject(createActivityModel, ct);
     }
 
     public async Task AddResourceToSubjectAsync(CreateResourceDto resourceModel, CancellationToken ct)

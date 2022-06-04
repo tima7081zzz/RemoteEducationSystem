@@ -1,6 +1,6 @@
 using Domain.Enums;
 
-namespace Data.DTO;
+namespace Data.DTO.Create;
 
 public class CreateResourceDto
 {

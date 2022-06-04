@@ -1,5 +1,6 @@
 using System.Data;
 using Data.DTO;
+using Data.DTO.Create;
 using Data.Helpers;
 using Data.Interfaces;
 using Data.Interfaces.Repositories;
@@ -28,7 +29,7 @@ public class SubjectRepository : ISubjectRepository
             .QuerySingleOrDefault<int>();
     }
 
-    public async Task<int> SetProfessorForSubject(int userId, int subjectId, CancellationToken ct)
+    public async Task<int> SetProfessorForSubjectAsync(int userId, int subjectId, CancellationToken ct)
     {
         return await QueryExecutionBuilder
             .ForConnectionManager(_connectionManager)
@@ -40,5 +41,42 @@ public class SubjectRepository : ISubjectRepository
             .AddParameter("userId", userId, DbType.Int32)
             .AddParameter("subjectId", subjectId, DbType.Int32)
             .QuerySingleOrDefault<int>();
+    }
+
+    public async Task<IEnumerable<ResourceDto>> GetAllResourcesAsync(CancellationToken ct)
+    {
+        return await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .ReadOnly()
+            .CancelWhen(ct)
+            .UseQuery(@"
+                select 
+                    r.Id,
+                    r.[Type],
+                    r.[Name],           
+                    r.SubjectId,
+                    s.[Name] as SubjectName
+                from [Resource] r
+                join [Subject] s on r.SubjectId = s.Id")
+            .QueryAsync<ResourceDto>();
+    }
+
+    public async Task<IEnumerable<CreateActivityDto>> GetAllActivitiesAsync(CancellationToken ct)
+    {
+        return await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .ReadOnly()
+            .CancelWhen(ct)
+            .UseQuery(@"
+                select 
+                    a.Id,
+                    a.[Type],
+                    a.[Name],
+                    a.MaxGrade,
+                    a.SubjectId,
+                    s.[Name] as SubjectName
+                from Activity a
+                join [Subject] s on a.SubjectId = s.Id")
+            .QueryAsync<CreateActivityDto>();
     }
 }

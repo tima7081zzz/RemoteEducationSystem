@@ -1,4 +1,4 @@
-namespace courseWork.Models;
+namespace courseWork.Models.ViewModels;
 
 public class ErrorViewModel
 {

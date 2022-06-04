@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using courseWork.Models;
 using Data.DTO;
+using Data.DTO.Create;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ public class AuthController : Controller
         }
 
         await Authenticate(user);
-        return View("Error");
+        return RedirectToAction("Index", "Admin");
     }
 
     [HttpGet]
