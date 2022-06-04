@@ -16,11 +16,6 @@ public class AuthController : Controller
         _adminService = adminService;
     }
 
-    public IActionResult Index()
-    {
-        return View("Login");
-    }
-
     [HttpGet]
     public IActionResult Login()
     {
@@ -34,7 +29,7 @@ public class AuthController : Controller
             ct);
         if (user == null)
         {
-            return RedirectToAction("Index");
+            return RedirectToAction("Login");
         }
 
         await Authenticate(user);

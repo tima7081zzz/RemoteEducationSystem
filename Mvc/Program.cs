@@ -7,15 +7,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddData();
-builder.Services.AddPersistence();
-builder.Services.AddServices();
+builder.Services.AddMvc();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
+        options.Cookie.Name = "CourseWork.AuthCookie";
         options.LoginPath = new PathString("/Auth/Login");
+        options.AccessDeniedPath = new PathString("/Auth/Login");
     });
+builder.Services.AddAuthorization();
+builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddData();
+builder.Services.AddPersistence();
+builder.Services.AddServices();
 
 var app = builder.Build();
 
@@ -41,7 +47,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Auth}/{action=Login}/{id?}");
 app.MapRazorPages();
 
 app.Run();

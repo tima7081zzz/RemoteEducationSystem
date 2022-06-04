@@ -1,0 +1,17 @@
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\bin\Debug\net6.0\Persistence.deps.json
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\bin\Debug\net6.0\Persistence.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\bin\Debug\net6.0\ref\Persistence.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\bin\Debug\net6.0\Persistence.pdb
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\bin\Debug\net6.0\Data.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\bin\Debug\net6.0\Domain.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\bin\Debug\net6.0\Data.pdb
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\bin\Debug\net6.0\Domain.pdb
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\obj\Debug\net6.0\Persistence.csproj.AssemblyReference.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\obj\Debug\net6.0\Persistence.GeneratedMSBuildEditorConfig.editorconfig
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\obj\Debug\net6.0\Persistence.AssemblyInfoInputs.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\obj\Debug\net6.0\Persistence.AssemblyInfo.cs
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\obj\Debug\net6.0\Persistence.csproj.CoreCompileInputs.cache
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\obj\Debug\net6.0\Persistence.csproj.CopyComplete
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\obj\Debug\net6.0\Persistence.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\obj\Debug\net6.0\ref\Persistence.dll
+D:\MY PROGS AMA GANGSTA NAH\.net univer\courseWork\Persistence\obj\Debug\net6.0\Persistence.pdb
