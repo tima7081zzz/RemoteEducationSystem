@@ -11,5 +11,7 @@ public interface IAdminService
     Task<IEnumerable<UserDto>> GetAllUsersAsync(int currentUserId, CancellationToken ct);
     Task<IEnumerable<ResourceDto>> GetAllResourcesAsync(int currentUserId, CancellationToken ct);
     Task<IEnumerable<CreateActivityDto>> GetAllActivitiesAsync(int currentUserId, CancellationToken ct);
+    Task<int> SetProfessorForSubjectAsync(int userId, int subjectId, CancellationToken ct);
+    Task<IEnumerable<string>> GetAllSubjectsAsync(int currentUserId, CancellationToken ct);
 
 }

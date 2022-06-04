@@ -1,13 +1,15 @@
 @using courseWork.Views.Admin
 @model courseWork.Models.ViewModels.AdminIndexViewModel
 
+<a asp-action="Subject" asp-controller="Admin">Add Subject</a>
+
 @using (Html.BeginForm("AddUser", "Admin", FormMethod.Post))
 {
     <div class="input-group">
         @Html.TextBoxFor(model => model.UserModel.Fullname, new {@class = "form-control"})
         @Html.TextBoxFor(model => model.UserModel.Email, new {@class = "form-control"})
         @Html.TextBoxFor(model => model.UserModel.Password, new {@class = "form-control"})
-        @Html.DropDownListFor(model => model.UserModel.Role, RoleListItems.Items);
+        @Html.DropDownListFor(model => model.UserModel.Role, RoleListItems.Items)
         <div class="input-group-append">
             <button type="submit" class="btn btn-success">"Add"</button>
         </div>
@@ -51,9 +53,9 @@
     <thead>
     <tr>
         <th scope="col">Id</th>
-        <th scope="col">FullName</th>
-        <th scope="col">Email</th>
-        <th scope="col">Role</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">SubjectName</th>
     </tr>
     </thead>
     <tbody>
@@ -82,9 +84,9 @@
     <thead>
     <tr>
         <th scope="col">Id</th>
-        <th scope="col">FullName</th>
-        <th scope="col">Email</th>
-        <th scope="col">Role</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">MaxGrade</th>
     </tr>
     </thead>
     <tbody>

@@ -47,6 +47,18 @@ public class UserRepository : IUserRepository
             .QuerySingleOrDefault<int>();
     }
 
+    public async Task AddProfessorAsync(int professorId, CancellationToken ct)
+    {
+        await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .CancelWhen(ct)
+            .UseQuery(@"
+                insert into Professor(UserId)
+                values(@professorId)")
+            .AddParameter("@professorId", professorId, DbType.Int32)
+            .ExecuteAsync();
+    }
+
     public async Task<UserDto> GetUserByIdAsync(int userId, CancellationToken ct)
     {
         return await QueryExecutionBuilder

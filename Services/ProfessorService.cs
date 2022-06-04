@@ -50,4 +50,9 @@ public class ProfessorService : IProfessorService
         await _professorRepository.RateStudentsActivityAsync(studentId, activityId, grade, ct);
     }
 
+    public async Task<IEnumerable<GroupDto>> GetAllGroupsByProfessorIdAsync(int professorId, CancellationToken ct)
+    {
+        return await _professorRepository.GetAllGroupsByProfessorIdAsync(professorId, ct);
+    }
+
 }

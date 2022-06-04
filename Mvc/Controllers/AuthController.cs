@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using courseWork.Models;
 using Data.DTO;
-using Data.DTO.Create;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -34,35 +34,14 @@ public class AuthController : Controller
         }
 
         await Authenticate(user);
-        return RedirectToAction("Index", "Admin");
-    }
 
-    [HttpGet]
-    public IActionResult Register()
-    {
-        return View("Register");
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Register(CreateUserDto registerModel, CancellationToken ct)
-    {
-        var user = await _adminService.GetUserAsync(new LoginUserDto
-            {
-                Email = registerModel.Email,
-                Password = registerModel.Password
-            },
-            ct);
-
-        if (user != null)
+        return user.Role switch
         {
-            await Authenticate(user);
-            //redirect
-        }
-
-        var newUser = await _adminService.AddUserAsync(registerModel, ct);
-        await Authenticate(newUser);
-
-        return View("Error");
+            EUserRole.Admin => RedirectToAction("Index", "Admin"),
+            EUserRole.Professor => RedirectToAction("Index", "Professor"),
+            EUserRole.Student => RedirectToAction("Index", "Admin"),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 
     private async Task Authenticate(UserDto user)

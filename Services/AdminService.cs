@@ -11,7 +11,7 @@ namespace Services;
 public class AdminService : IAdminService
 {
     private readonly IUserRepository _userRepository;
-    private readonly ISubjectRepository _subjectRepository ;
+    private readonly ISubjectRepository _subjectRepository;
 
     public AdminService(IUserRepository userRepository, ISubjectRepository subjectRepository)
     {
@@ -28,6 +28,12 @@ public class AdminService : IAdminService
         }
 
         var userId = await _userRepository.CreateUserAsync(userModel, ct);
+
+        if (userModel.Role == EUserRole.Professor)
+        {
+            await _userRepository.AddProfessorAsync(userId, ct);
+        }
+
         return await _userRepository.GetUserByIdAsync(userId, ct);
     }
 
@@ -51,7 +57,7 @@ public class AdminService : IAdminService
         return await _subjectRepository.CreateSubjectAsync(name, ct);
     }
 
-    public async Task<int> SetProfessorForSubject(int userId, int subjectId, CancellationToken ct)
+    public async Task<int> SetProfessorForSubjectAsync(int userId, int subjectId, CancellationToken ct)
     {
         var user = await _userRepository.GetUserByIdAsync(userId, ct);
 
@@ -65,7 +71,6 @@ public class AdminService : IAdminService
             throw new WrongOperationException(nameof(User), user.Role);
         }
 
-        //TODO: add checking of existing this user for this subject
         //add all validations
 
         return await _subjectRepository.SetProfessorForSubjectAsync(userId, subjectId, ct);
@@ -90,6 +95,13 @@ public class AdminService : IAdminService
         await ValidateUserAsync(currentUserId, ct);
 
         return await _subjectRepository.GetAllActivitiesAsync(ct);
+    }
+
+    public async Task<IEnumerable<string>> GetAllSubjectsAsync(int currentUserId, CancellationToken ct)
+    {
+        await ValidateUserAsync(currentUserId, ct);
+
+        return await _subjectRepository.GetAllSubjectsAsync(ct);
     }
 
     private async Task ValidateUserAsync(int currentUserId, CancellationToken ct)

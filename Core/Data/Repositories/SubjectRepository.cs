@@ -79,4 +79,16 @@ public class SubjectRepository : ISubjectRepository
                 join [Subject] s on a.SubjectId = s.Id")
             .QueryAsync<CreateActivityDto>();
     }
+
+    public async Task<IEnumerable<string>> GetAllSubjectsAsync(CancellationToken ct)
+    {
+        return await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .ReadOnly()
+            .CancelWhen(ct)
+            .UseQuery(@"
+                select [Name]
+                from [Subject]")
+            .QueryAsync<string>();
+    }
 }

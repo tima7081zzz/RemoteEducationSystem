@@ -4,6 +4,7 @@ using Data.DTO.Create;
 using Data.Helpers;
 using Data.Interfaces;
 using Data.Interfaces.Repositories;
+using Domain;
 
 namespace Data.Repositories;
 
@@ -16,7 +17,7 @@ public class ProfessorRepository : IProfessorRepository
         _connectionManager = connectionManager;
     }
 
-    public async Task<int> CreateGroupAsync(string name, int userId, CancellationToken ct)
+    /*public async Task<int> CreateGroupAsync(string name, int userId, CancellationToken ct)
     {
         return await QueryExecutionBuilder
             .ForConnectionManager(_connectionManager)
@@ -36,6 +37,19 @@ public class ProfessorRepository : IProfessorRepository
             .AddParameter("@name", name, DbType.String)
             .AddParameter("@userId", userId, DbType.Int32)
             .QuerySingleOrDefault<int>();
+    }*/
+
+    public async Task<int> CreateGroupAsync(string name, int userId, CancellationToken ct)
+    {
+        return await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .CancelWhen(ct)
+            .UseQuery(@"
+                insert into [Group]([Name])
+                values(@name)")
+            .AddParameter("@name", name, DbType.String)
+            .AddParameter("@userId", userId, DbType.Int32)
+            .QuerySingleOrDefault<int>();
     }
 
     public async Task AddUserToGroupAsync(int userId, int groupId, CancellationToken ct)
@@ -49,6 +63,21 @@ public class ProfessorRepository : IProfessorRepository
             .AddParameter("@userId", userId, DbType.Int32)
             .AddParameter("@groupId", groupId, DbType.Int32)
             .ExecuteAsync();
+    }
+
+    public async Task<IEnumerable<GroupDto>> GetAllGroupsByProfessorIdAsync(int professorId, CancellationToken ct)
+    {
+        return await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .CancelWhen(ct)
+            .ReadOnly()
+            .UseQuery(@"
+                select * 
+                from [Group] g
+                join Professor p on p.GroupId = g.Id
+                where p.Id = @professorId")
+            .AddParameter("@professorId", professorId, DbType.Int32)
+            .QueryAsync<GroupDto>();
     }
 
     public async Task AddActivityToSubject(CreateActivityDto createActivityModel, CancellationToken ct)

@@ -10,4 +10,5 @@ public interface IProfessorRepository
     Task AddActivityToSubject(CreateActivityDto createActivityModel, CancellationToken ct);
     Task AddResourceToSubjectAsync(CreateResourceDto resourceModel, CancellationToken ct);
     Task RateStudentsActivityAsync(int studentId, int activityId, int grade, CancellationToken ct);
+    Task<IEnumerable<GroupDto>> GetAllGroupsByProfessorIdAsync(int professorId, CancellationToken ct);
 }

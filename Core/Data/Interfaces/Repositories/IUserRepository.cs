@@ -9,4 +9,5 @@ public interface IUserRepository
     Task<int> CreateUserAsync(CreateUserDto userModel, CancellationToken ct);
     Task<UserDto> GetUserByIdAsync(int userId, CancellationToken ct);
     Task<IEnumerable<UserDto>> GetAllUsersAsync(CancellationToken ct);
+    Task AddProfessorAsync(int professorId, CancellationToken ct);
 }
