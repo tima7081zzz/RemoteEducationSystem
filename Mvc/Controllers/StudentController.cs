@@ -1,8 +1,11 @@
+using courseWork.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
 namespace courseWork.Controllers;
 
+[Authorize(Roles = "Student")]
 public class StudentController : BaseController
 {
     private readonly IStudentService _studentService;
@@ -13,9 +16,14 @@ public class StudentController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(CancellationToken ct)
     {
-        return View("Index");
+        var viewModel = new StudentIndexViewModel
+        {
+            Activities = (await _studentService.GetStudentsActivitiesAsync(UserId!.Value, ct)).ToList(),
+        };
+
+        return View("Index", viewModel);
     }
 
     [HttpPut]

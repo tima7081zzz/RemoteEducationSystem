@@ -39,7 +39,7 @@ public class AuthController : Controller
         {
             EUserRole.Admin => RedirectToAction("Index", "Admin"),
             EUserRole.Professor => RedirectToAction("Index", "Professor"),
-            EUserRole.Student => RedirectToAction("Index", "Admin"),
+            EUserRole.Student => RedirectToAction("Index", "Student"),
             _ => throw new ArgumentOutOfRangeException()
         };
     }

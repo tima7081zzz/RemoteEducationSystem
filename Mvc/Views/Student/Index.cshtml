@@ -1,1 +1,20 @@
-@model dynamic
+@model courseWork.Models.ViewModels.StudentIndexViewModel
+
+<h2> Groups </h2>
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var group in Model!.Activities)
+    {
+        <tr>
+            <th>
+                @group.Name
+            </th>
+        </tr>
+    }
+    </tbody>
+</table>

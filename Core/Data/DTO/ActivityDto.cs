@@ -9,5 +9,6 @@ public class ActivityDto
     public string Name { get; set; }
     public int MaxGrade { get; set; }
     public int SubjectId { get; set; }
+    public bool IsDone { get; set; }
     public string SubjectName { get; set; }
 }

@@ -1,4 +1,5 @@
 using System.Data;
+using Data.DTO;
 using Data.Helpers;
 using Data.Interfaces;
 using Data.Interfaces.Repositories;
@@ -29,5 +30,25 @@ public class StudentRepository : IStudentRepository
             .AddParameter("@studentId", studentId, DbType.Int32)
             .AddParameter("@activityId", activityId, DbType.Int32)
             .ExecuteAsync();
+    }
+
+    public async Task<IEnumerable<ActivityDto>> GetStudentsActivitiesAsync(int userId, CancellationToken ct)
+    {
+        return await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .CancelWhen(ct)
+            .ReadOnly()
+            .UseQuery(@"
+                select 
+                    a.*,
+                    s.[Name]
+                from [Activity] a
+                join User_Activity ua
+                	on a.Id = ua.ActivityId
+                join [Subject] s
+                	on a.SubjectId = s.Id
+                where ua.UserId = @userId")
+            .AddParameter("@userId", userId, DbType.Int32)
+            .QueryAsync<ActivityDto>();
     }
 }
