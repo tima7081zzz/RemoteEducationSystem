@@ -10,4 +10,5 @@ public interface IUserRepository
     Task<UserDto> GetUserByIdAsync(int userId, CancellationToken ct);
     Task<IEnumerable<UserDto>> GetAllUsersAsync(CancellationToken ct);
     Task AddProfessorAsync(int professorId, CancellationToken ct);
+    Task<IEnumerable<UserDto>> GetAllProfessorsAsync(CancellationToken ct);
 }

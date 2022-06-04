@@ -9,5 +9,5 @@ public interface ISubjectRepository
     Task<int> SetProfessorForSubjectAsync(int userId, int subjectId, CancellationToken ct);
     Task<IEnumerable<ResourceDto>> GetAllResourcesAsync(CancellationToken ct);
     Task<IEnumerable<CreateActivityDto>> GetAllActivitiesAsync(CancellationToken ct);
-    Task<IEnumerable<string>> GetAllSubjectsAsync(CancellationToken ct);
+    Task<IEnumerable<SubjectDto>> GetAllSubjectsAsync(CancellationToken ct);
 }

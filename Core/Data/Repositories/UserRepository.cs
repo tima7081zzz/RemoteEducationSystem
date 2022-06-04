@@ -84,4 +84,16 @@ public class UserRepository : IUserRepository
                 where [Role] <> 0")
             .QueryAsync<UserDto>();
     }
+
+    public async Task<IEnumerable<UserDto>> GetAllProfessorsAsync(CancellationToken ct)
+    {
+        return await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .ReadOnly()
+            .CancelWhen(ct)
+            .UseQuery(@"
+                select * from [User]
+                where [Role] = 1")
+            .QueryAsync<UserDto>();
+    }
 }

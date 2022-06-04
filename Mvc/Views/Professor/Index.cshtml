@@ -3,7 +3,7 @@
 @using (Html.BeginForm("AddGroup", "Professor", FormMethod.Post))
 {
     <div class="input-group">
-        @Html.TextBoxFor(model => model.CreateGroupModel.groupName, new {@class = "form-control"})
+        @Html.TextBoxFor(model => model.CreateGroupName, new {@class = "form-control"})
         <div class="input-group-append">
             <button type="submit" class="btn btn-success">"Add"</button>
         </div>

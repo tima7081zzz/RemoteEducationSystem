@@ -80,15 +80,15 @@ public class SubjectRepository : ISubjectRepository
             .QueryAsync<CreateActivityDto>();
     }
 
-    public async Task<IEnumerable<string>> GetAllSubjectsAsync(CancellationToken ct)
+    public async Task<IEnumerable<SubjectDto>> GetAllSubjectsAsync(CancellationToken ct)
     {
         return await QueryExecutionBuilder
             .ForConnectionManager(_connectionManager)
             .ReadOnly()
             .CancelWhen(ct)
             .UseQuery(@"
-                select [Name]
+                select Id, [Name]
                 from [Subject]")
-            .QueryAsync<string>();
+            .QueryAsync<SubjectDto>();
     }
 }

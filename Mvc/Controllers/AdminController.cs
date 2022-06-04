@@ -1,3 +1,4 @@
+using courseWork.Models;
 using courseWork.Models.ViewModels;
 using Data.DTO.Create;
 using Microsoft.AspNetCore.Authorization;
@@ -42,7 +43,10 @@ public class AdminController : BaseController
     {
         var viewModel = new SubjectViewModel
         {
-            Subjects = (await _adminService.GetAllSubjectsAsync(UserId!.Value, ct)).ToList(),
+            Subjects = (await _adminService.GetAllSubjectsAsync(UserId!.Value,
+                ct)).ToList(),
+            Professors = (await _adminService.GetAllProfessorsAsync(ct))
+                .Select(x => new ProfessorIdNameModel {FullName = x.Fullname, Id = x.Id}).ToList(),
         };
 
         return View("Subject", viewModel);
@@ -56,10 +60,10 @@ public class AdminController : BaseController
         return RedirectToAction("Index");
     }
 
-    [HttpPut]
-    public async Task<IActionResult> SetProfessorForSubject(int userId, int subjectId, CancellationToken ct)
+    [HttpPost]
+    public async Task<IActionResult> SetProfessorForSubject(SetProfessorForSubjectRequestModel requestModel, CancellationToken ct)
     {
-        await _adminService.SetProfessorForSubjectAsync(userId, subjectId, ct);
+        await _adminService.SetProfessorForSubjectAsync(requestModel.ProfessorId, requestModel.SubjectId, ct);
 
         return RedirectToAction("Index");
     }

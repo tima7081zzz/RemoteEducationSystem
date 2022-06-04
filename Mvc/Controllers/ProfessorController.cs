@@ -26,9 +26,9 @@ public class ProfessorController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddGroup(CreateGroupDto createGroupModel, CancellationToken ct)
+    public async Task<IActionResult> AddGroup(string createGroupName, CancellationToken ct)
     {
-        await _professorService.CreateGroupAsync(createGroupModel.groupName, UserId!.Value, ct);
+        await _professorService.CreateGroupAsync(createGroupName, UserId!.Value, ct);
 
         return RedirectToAction("Index");
     }

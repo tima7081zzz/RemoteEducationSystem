@@ -5,6 +5,6 @@ namespace courseWork.Models.ViewModels;
 
 public class ProfessorIndexViewModel
 {
-    public CreateGroupDto CreateGroupModel { get; set; }
+    public string CreateGroupName { get; set; }
     public ICollection<GroupDto> Groups { get; set; }
 }

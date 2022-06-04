@@ -57,5 +57,4 @@ public class ProfessorService : IProfessorService
     {
         return await _professorRepository.GetAllGroupsByProfessorIdAsync(professorId, ct);
     }
-
 }
