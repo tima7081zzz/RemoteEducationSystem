@@ -20,7 +20,9 @@ public class ProfessorController : BaseController
     {
         var viewModel = new ProfessorIndexViewModel
         {
-            Groups = (await _professorService.GetAllGroupsByProfessorIdAsync(UserId!.Value, ct)).ToList()
+            Groups = (await _professorService.GetAllGroupsByProfessorIdAsync(UserId!.Value, ct)).ToList(),
+            Students = (await _professorService.GetAllStudentsAsync(ct)).ToList(),
+            Subjects = (await _professorService.GetAllProfessorsSubjectsAsync(UserId!.Value, ct)).ToList(),
         };
         return View("Index", viewModel);
     }
@@ -29,6 +31,22 @@ public class ProfessorController : BaseController
     public async Task<IActionResult> AddGroup(string createGroupName, CancellationToken ct)
     {
         await _professorService.CreateGroupAsync(createGroupName, UserId!.Value, ct);
+
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddStudentToGroup(AddStudentToGroupModel addStudentToGroupModel, CancellationToken ct)
+    {
+        await _professorService.AddUserToGroupAsync(addStudentToGroupModel.StudentId, addStudentToGroupModel.GroupId, ct);
+
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddSubjectToGroup(AddSubjectToGroupModel addSubjectToGroupModel, CancellationToken ct)
+    {
+        await _professorService.AddSubjectToGroupAsync(addSubjectToGroupModel.GroupId, addSubjectToGroupModel.SubjectId, UserId!.Value, ct);
 
         return RedirectToAction("Index");
     }

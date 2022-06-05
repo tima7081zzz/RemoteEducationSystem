@@ -6,5 +6,9 @@ namespace courseWork.Models.ViewModels;
 public class ProfessorIndexViewModel
 {
     public string CreateGroupName { get; set; }
-    public ICollection<GroupDto> Groups { get; set; }
+    public IEnumerable<UserDto> Students { get; set; }
+    public IEnumerable<SubjectDto> Subjects { get; set; }
+    public ICollection<GroupFullDto> Groups { get; set; }
+    public AddStudentToGroupModel AddStudentToGroupModel { get; set; }
+    public AddSubjectToGroupModel AddSubjectToGroupModel { get; set; }
 }

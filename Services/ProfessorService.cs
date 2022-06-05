@@ -53,8 +53,28 @@ public class ProfessorService : IProfessorService
         await _professorRepository.RateStudentsActivityAsync(studentId, activityId, grade, ct);
     }
 
-    public async Task<IEnumerable<GroupDto>> GetAllGroupsByProfessorIdAsync(int professorId, CancellationToken ct)
+    public async Task<IEnumerable<GroupFullDto>> GetAllGroupsByProfessorIdAsync(int professorId, CancellationToken ct)
     {
         return await _professorRepository.GetAllGroupsByProfessorIdAsync(professorId, ct);
+    }
+
+    public async Task<IEnumerable<SubjectDto>> GetAllProfessorsSubjectsAsync(int professorId, CancellationToken ct)
+    {
+        return await _professorRepository.GetAllProfessorsSubjectsAsync(professorId, ct);
+    }
+
+    public async Task AddStudentToGroupAsync(int groupId, int studentId, CancellationToken ct)
+    {
+        await _professorRepository.AddStudentToGroupAsync(groupId, studentId, ct);
+    }
+
+    public async Task AddSubjectToGroupAsync(int groupId, int subjectId, int professorId, CancellationToken ct)
+    {
+        await _professorRepository.AddSubjectToGroupAsync(groupId, subjectId, professorId, ct);
+    }
+
+    public async Task<IEnumerable<UserDto>> GetAllStudentsAsync(CancellationToken ct)
+    {
+        return await _professorRepository.GetAllStudentsAsync(ct);
     }
 }

@@ -19,6 +19,7 @@
     <tr>
         <th scope="col">Name</th>
         <th>Professor Names</th>
+        <th>Select professor</th>
     </tr>
     </thead>
     <tbody>
@@ -38,8 +39,10 @@
                 @using (Html.BeginForm("SetProfessorForSubject", "Admin",FormMethod.Post))
                 {
                     <div class="input-group">
-                        @Html.Hidden("RequestModel.SubjectId", subject.Id);
-                        @Html.DropDownListFor(model => model.RequestModel.ProfessorId, Model.Professors.Select(x => new SelectListItem(x.FullName, x.Id.ToString())))
+                        @Html.Hidden("RequestModel.SubjectId", subject.Id)
+                        @Html.DropDownListFor(model => model.RequestModel.ProfessorId, Model.Professors.
+                            Where(x => !subject.ProfessorsNames.Contains(x.FullName))
+                            .Select(x => new SelectListItem(x.FullName, x.Id.ToString())))
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-success">Add</button>
                         </div>

@@ -5,10 +5,14 @@
 
 @using (Html.BeginForm("AddUser", "Admin", FormMethod.Post))
 {
-    <div class="input-group">
+    <div class="form-group">
+        <h3>Fullname:</h3>
         @Html.TextBoxFor(model => model.UserModel.Fullname, new {@class = "form-control"})
+        <h3>Email:</h3>
         @Html.TextBoxFor(model => model.UserModel.Email, new {@class = "form-control"})
+        <h3>Password:</h3>
         @Html.TextBoxFor(model => model.UserModel.Password, new {@class = "form-control"})
+        <h3>Role:</h3>
         @Html.DropDownListFor(model => model.UserModel.Role, RoleListItems.Items)
         <div class="input-group-append">
             <button type="submit" class="btn btn-success">"Add"</button>

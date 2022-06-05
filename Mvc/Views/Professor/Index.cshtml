@@ -16,6 +16,10 @@
     <thead>
     <tr>
         <th scope="col">Name</th>
+        <th scope="col">Students</th>
+        <th scope="col">Subjects</th>
+        <th scope="col">Select Student</th>
+        <th scope="col">Select Subject</th>
     </tr>
     </thead>
     <tbody>
@@ -25,6 +29,48 @@
             <th>
                 @group.Name
             </th>
+            <td>
+                @foreach (var name in group.StudentsNames)
+                {
+                    <span>@name</span>
+                }
+            </td>
+            <td>
+                @foreach (var name in group.SubjectNames)
+                {
+                    <span>@name</span>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("AddStudentToGroup", "Professor", FormMethod.Post))
+                {
+                    <div class="input-group">
+                        @Html.Hidden("AddStudentToGroupModel.GroupId", group.Id)
+                        @Html.DropDownListFor(model => model.AddStudentToGroupModel.StudentId, Model.Students.
+                            Where(x => !group.StudentsNames.Contains(x.Fullname))
+                            .Select(x => new SelectListItem(x.Fullname, x.Id.ToString())))
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+                    @Html.ValidationSummary()
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("AddSubjectToGroup", "Professor", FormMethod.Post))
+                {
+                    <div class="input-group">
+                        @Html.Hidden("AddSubjectToGroupModel.GroupId", group.Id)
+                        @Html.DropDownListFor(model => model.AddSubjectToGroupModel.SubjectId, Model.Subjects.
+                            Where(x => !group.SubjectNames.Contains(x.Name))
+                            .Select(x => new SelectListItem(x.Name, x.Id.ToString())))
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+                    @Html.ValidationSummary()
+                }
+            </td>
         </tr>
     }
     </tbody>
