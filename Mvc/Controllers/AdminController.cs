@@ -57,7 +57,7 @@ public class AdminController : BaseController
     {
         var subjectId = await _adminService.CreateSubjectAsync(subjectName, ct);
 
-        return RedirectToAction("Index");
+        return RedirectToAction("Subject");
     }
 
     [HttpPost]
@@ -65,6 +65,6 @@ public class AdminController : BaseController
     {
         await _adminService.SetProfessorForSubjectAsync(requestModel.ProfessorId, requestModel.SubjectId, ct);
 
-        return RedirectToAction("Index");
+        return RedirectToAction("Subject");
     }
 }

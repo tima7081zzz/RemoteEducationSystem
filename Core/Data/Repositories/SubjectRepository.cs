@@ -1,4 +1,5 @@
 using System.Data;
+using Dapper;
 using Data.DTO;
 using Data.DTO.Create;
 using Data.Helpers;
@@ -80,15 +81,37 @@ public class SubjectRepository : ISubjectRepository
             .QueryAsync<CreateActivityDto>();
     }
 
-    public async Task<IEnumerable<SubjectDto>> GetAllSubjectsAsync(CancellationToken ct)
+    public async Task<IEnumerable<SubjectFullDto>> GetAllSubjectsAsync(CancellationToken ct)
     {
-        return await QueryExecutionBuilder
-            .ForConnectionManager(_connectionManager)
-            .ReadOnly()
-            .CancelWhen(ct)
-            .UseQuery(@"
-                select Id, [Name]
-                from [Subject]")
-            .QueryAsync<SubjectDto>();
+        var joinDictionary = new Dictionary<int, SubjectFullDto>();
+        const string query = @"
+                select s.Id, s.[Name], u.Fullname
+                from [Subject] s
+                left join Professor p on p.SubjectId = s.Id
+                left join [User] u on u.Id = p.UserId";
+
+        using var connectionScope = _connectionManager.GetReadConnection();
+        var connection = connectionScope.DbConnection;
+
+        await connection.QueryAsync<SubjectFullDto, string, SubjectFullDto>(query, (dto, s) =>
+        {
+            if (!joinDictionary.TryGetValue(dto.Id, out var subject))
+            {
+                joinDictionary.Add(dto.Id, subject = dto);
+            }
+
+            subject.ProfessorsNames ??= new List<string>();
+
+            if (s == null)
+            {
+                return subject;
+            }
+
+            subject.ProfessorsNames.Add(s);
+
+            return subject;
+        }, splitOn: "Fullname");
+
+        return joinDictionary.Values;
     }
 }

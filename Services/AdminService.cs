@@ -97,7 +97,7 @@ public class AdminService : IAdminService
         return await _subjectRepository.GetAllActivitiesAsync(ct);
     }
 
-    public async Task<IEnumerable<SubjectDto>> GetAllSubjectsAsync(int currentUserId, CancellationToken ct)
+    public async Task<IEnumerable<SubjectFullDto>> GetAllSubjectsAsync(int currentUserId, CancellationToken ct)
     {
         await ValidateUserAsync(currentUserId, ct);
 

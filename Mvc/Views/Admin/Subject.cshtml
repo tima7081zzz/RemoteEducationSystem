@@ -1,5 +1,7 @@
 @model courseWork.Models.ViewModels.SubjectViewModel
 
+<a asp-action="Index" asp-controller="Admin">Main page</a>
+
 @using (Html.BeginForm("AddSubject", "Admin", FormMethod.Post))
 {
     <div class="input-group">
@@ -16,6 +18,7 @@
     <thead>
     <tr>
         <th scope="col">Name</th>
+        <th>Professor Names</th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +27,12 @@
         <tr>
             <td>
                 @subject.Name
+            </td>
+            <td>
+                @foreach (var name in subject.ProfessorsNames)
+                {
+                    <span>@name</span>
+                }
             </td>
             <td>
                 @using (Html.BeginForm("SetProfessorForSubject", "Admin",FormMethod.Post))
