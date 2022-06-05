@@ -8,7 +8,10 @@ public class ActivityDto
     public EActivityType Type { get; set; }
     public string Name { get; set; }
     public int MaxGrade { get; set; }
+    public int? Grade { get; set; }
     public int SubjectId { get; set; }
     public bool IsDone { get; set; }
     public string SubjectName { get; set; }
+    public string StudentName { get; set; }
+    public int StudentId { get; set; }
 }

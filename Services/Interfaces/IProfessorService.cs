@@ -14,4 +14,5 @@ public interface IProfessorService
     Task<IEnumerable<SubjectDto>> GetAllProfessorsSubjectsAsync(int professorId, CancellationToken ct);
     Task AddSubjectToGroupAsync(int groupId, int subjectId, int professorId, CancellationToken ct);
     Task<IEnumerable<UserDto>> GetAllStudentsAsync(CancellationToken ct);
+    Task<IEnumerable<ActivityDto>> GetAllProfessorsActivitiesToRate(int professorId, CancellationToken ct);
 }

@@ -170,19 +170,6 @@ public class ProfessorRepository : IProfessorRepository
             .ExecuteAsync();
     }
 
-    public async Task AddStudentToGroupAsync(int groupId, int studentId, CancellationToken ct)
-    {
-        await QueryExecutionBuilder
-            .ForConnectionManager(_connectionManager)
-            .CancelWhen(ct)
-            .UseQuery(@"
-                insert into User_Group(UserId, GroupId)
-                values(@studentId, @groupId)")
-            .AddParameter("@groupId", groupId, DbType.Int32)
-            .AddParameter("@studentId", studentId, DbType.Int32)
-            .ExecuteAsync();
-    }
-
     public async Task AddSubjectToGroupAsync(int groupId, int subjectId, int professorId, CancellationToken ct)
     {
         await QueryExecutionBuilder
@@ -228,5 +215,36 @@ public class ProfessorRepository : IProfessorRepository
             .AddParameter("@activityId", activityId, DbType.Int32)
             .AddParameter("@date", DateTime.Now, DbType.Date)
             .ExecuteAsync();
+    }
+
+    public async Task<IEnumerable<ActivityDto>> GetAllProfessorsActivitiesToRate(int professorId, CancellationToken ct)
+    {
+        return await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .CancelWhen(ct)
+            .ReadOnly()
+            .UseQuery(@"
+                select 
+                    a.*,
+                	u.Fullname as StudentName,
+                    u.Id as StudentId,
+                    ua.Grade,
+                    s.[Name] as SubjectName
+                from [Activity] a
+                join User_Activity ua
+                	on a.Id = ua.ActivityId
+                join [Subject] s
+                	on a.SubjectId = s.Id
+                join [User] u 
+                	on u.Id = ua.UserId
+                where ua.UserId in (select u.Id from Professor p
+                					join User_Group ug 
+                						on ug.GroupId = p.GroupId
+                					join [User] u 
+                						on u.Id = ug.UserId 
+                					where p.UserId = @professorId)
+                and ua.IsDone = 1 and ua.Grade is null")
+            .AddParameter("@professorId", professorId, DbType.Int32)
+            .QueryAsync<ActivityDto>();
     }
 }

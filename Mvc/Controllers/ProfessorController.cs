@@ -82,4 +82,27 @@ public class ProfessorController : BaseController
 
         return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Activity(CancellationToken ct)
+    {
+        var viewModel = new ProfessorActivityViewModel
+        {
+            Activities = (await _professorService.GetAllProfessorsActivitiesToRate(UserId!.Value, ct)).ToList(),
+        };
+
+        return View("Activity", viewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RateStudentsActivity(RateStudentsActivityModel rateStudentsActivityModel,
+        CancellationToken ct)
+    {
+        await _professorService.RateStudentsActivityAsync(
+            rateStudentsActivityModel.StudentId,
+            rateStudentsActivityModel.ActivityId,
+            rateStudentsActivityModel.Grade, ct);
+
+        return RedirectToActionPermanent("Activity");
+    }
 }

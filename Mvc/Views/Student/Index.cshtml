@@ -1,12 +1,14 @@
 @model courseWork.Models.ViewModels.StudentIndexViewModel
 
-<h2> Groups </h2>
+<h2> Activities </h2>
 <table class="table table-striped table-bordered">
     <thead>
     <tr>
         <th scope="col">Name</th>
         <th scope="col">Subject Name</th>
         <th scope="col">Type</th>
+        <th scope="col">Grade</th>
+        <th scope="col">Do activity</th>
     </tr>
     </thead>
     <tbody>
@@ -23,7 +25,26 @@
                 @activity.Type
             </td>
             <td>
-                @activity.MaxGrade
+                @if (activity.Grade == null)
+                {
+
+                }
+                <span>@(activity.Grade != null ? activity.Grade / activity.MaxGrade : "Not graded")</span>
+            </td>
+            <td>
+                @if (!activity.IsDone)
+                {
+                    @using (Html.BeginForm("DoActivity", "Student", FormMethod.Post))
+                    {
+                        @Html.Hidden("ActivityId", activity.Id)
+                        <button type="submit" class="btn btn-success">Do</button>
+                        @Html.ValidationSummary()
+                    }
+                }
+                else
+                {
+                    <span>Already Done</span>
+                }
             </td>
         </tr>
     }

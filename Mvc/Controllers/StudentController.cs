@@ -26,7 +26,7 @@ public class StudentController : BaseController
         return View("Index", viewModel);
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<IActionResult> DoActivity(int activityId, CancellationToken ct)
     {
         await _studentService.DoActivityAsync(activityId, UserId!.Value, ct);

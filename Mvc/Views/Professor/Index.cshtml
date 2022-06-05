@@ -1,6 +1,8 @@
 @using Domain.Enums
 @model courseWork.Models.ViewModels.ProfessorIndexViewModel
 
+<a asp-action="Activity" asp-controller="Professor">Rate Activity</a>
+
 <h2>Add group</h2>
 @using (Html.BeginForm("AddGroup", "Professor", FormMethod.Post))
 {

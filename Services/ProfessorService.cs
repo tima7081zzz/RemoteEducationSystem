@@ -65,11 +65,6 @@ public class ProfessorService : IProfessorService
         return await _professorRepository.GetAllProfessorsSubjectsAsync(professorId, ct);
     }
 
-    public async Task AddStudentToGroupAsync(int groupId, int studentId, CancellationToken ct)
-    {
-        await _professorRepository.AddStudentToGroupAsync(groupId, studentId, ct);
-    }
-
     public async Task AddSubjectToGroupAsync(int groupId, int subjectId, int professorId, CancellationToken ct)
     {
         await _professorRepository.AddSubjectToGroupAsync(groupId, subjectId, professorId, ct);
@@ -78,5 +73,10 @@ public class ProfessorService : IProfessorService
     public async Task<IEnumerable<UserDto>> GetAllStudentsAsync(CancellationToken ct)
     {
         return await _professorRepository.GetAllStudentsAsync(ct);
+    }
+
+    public async Task<IEnumerable<ActivityDto>> GetAllProfessorsActivitiesToRate(int professorId, CancellationToken ct)
+    {
+        return await _professorRepository.GetAllProfessorsActivitiesToRate(professorId, ct);
     }
 }

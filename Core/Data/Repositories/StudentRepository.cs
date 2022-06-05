@@ -41,7 +41,9 @@ public class StudentRepository : IStudentRepository
             .UseQuery(@"
                 select 
                     a.*,
-                    s.[Name]
+                    ua.IsDone,
+                    ua.Grade,
+                    s.[Name] as SubjectName
                 from [Activity] a
                 join User_Activity ua
                 	on a.Id = ua.ActivityId

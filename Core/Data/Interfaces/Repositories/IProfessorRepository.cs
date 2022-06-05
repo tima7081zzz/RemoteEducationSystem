@@ -13,8 +13,8 @@ public interface IProfessorRepository
     Task<IEnumerable<GroupFullDto>> GetAllGroupsByProfessorIdAsync(int professorId, CancellationToken ct);
     Task SetProfessorForGroupAsync(int groupId, int professorId, CancellationToken ct);
     Task<IEnumerable<SubjectDto>> GetAllProfessorsSubjectsAsync(int professorId, CancellationToken ct);
-    Task AddStudentToGroupAsync(int groupId, int studentId, CancellationToken ct);
     Task AddSubjectToGroupAsync(int groupId, int subjectId, int professorId, CancellationToken ct);
     Task<IEnumerable<UserDto>> GetAllStudentsAsync(CancellationToken ct);
     Task AddActivitiesForStudentsOfGroup(int professorId, int activityId, CancellationToken ct);
+    Task<IEnumerable<ActivityDto>> GetAllProfessorsActivitiesToRate(int professorId, CancellationToken ct);
 }
