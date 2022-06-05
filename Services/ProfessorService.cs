@@ -38,7 +38,9 @@ public class ProfessorService : IProfessorService
     public async Task AddActivityToSubject(int userId, CreateActivityDto createActivityModel, CancellationToken ct)
     {
         //TODO: add validations
-        await _professorRepository.AddActivityToSubject(createActivityModel, ct);
+        var activityId = await _professorRepository.AddActivityToSubject(createActivityModel, ct);
+
+        await _professorRepository.AddActivitiesForStudentsOfGroup(userId, activityId, ct);
     }
 
     public async Task AddResourceToSubjectAsync(CreateResourceDto resourceModel, CancellationToken ct)

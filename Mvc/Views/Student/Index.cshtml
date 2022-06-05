@@ -5,15 +5,26 @@
     <thead>
     <tr>
         <th scope="col">Name</th>
+        <th scope="col">Subject Name</th>
+        <th scope="col">Type</th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var group in Model!.Activities)
+    @foreach (var activity in Model!.Activities)
     {
         <tr>
-            <th>
-                @group.Name
-            </th>
+            <td>
+                @activity.Name
+            </td>
+            <td>
+                @activity.SubjectName
+            </td>
+            <td>
+                @activity.Type
+            </td>
+            <td>
+                @activity.MaxGrade
+            </td>
         </tr>
     }
     </tbody>

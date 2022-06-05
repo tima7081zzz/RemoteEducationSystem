@@ -1,5 +1,7 @@
 using courseWork.Models;
 using courseWork.Models.ViewModels;
+using Data.DTO.Create;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
@@ -47,6 +49,36 @@ public class ProfessorController : BaseController
     public async Task<IActionResult> AddSubjectToGroup(AddSubjectToGroupModel addSubjectToGroupModel, CancellationToken ct)
     {
         await _professorService.AddSubjectToGroupAsync(addSubjectToGroupModel.GroupId, addSubjectToGroupModel.SubjectId, UserId!.Value, ct);
+
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddResourceToSubject(CreateResourceDto createResourceModel,
+        CancellationToken ct)
+    {
+        await _professorService.AddResourceToSubjectAsync(new CreateResourceDto
+        {
+            Type = createResourceModel.Type,
+            Name = createResourceModel.Name,
+            SubjectId = createResourceModel.SubjectId,
+        }, ct);
+
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddActivityToSubject(CreateActivityDto createActivityModel,
+        CancellationToken ct)
+    {
+        await _professorService.AddActivityToSubject(UserId!.Value, new CreateActivityDto
+        {
+            Type = createActivityModel.Type,
+            Name = createActivityModel.Name,
+            MaxGrade = createActivityModel.MaxGrade,
+            SubjectId = createActivityModel.SubjectId,
+            ProfessorId = UserId!.Value,
+        }, ct);
 
         return RedirectToAction("Index");
     }

@@ -1,11 +1,13 @@
+@using Domain.Enums
 @model courseWork.Models.ViewModels.ProfessorIndexViewModel
 
+<h2>Add group</h2>
 @using (Html.BeginForm("AddGroup", "Professor", FormMethod.Post))
 {
     <div class="input-group">
         @Html.TextBoxFor(model => model.CreateGroupName, new {@class = "form-control"})
         <div class="input-group-append">
-            <button type="submit" class="btn btn-success">"Add"</button>
+            <button type="submit" class="btn btn-success">Add</button>
         </div>
     </div>
     @Html.ValidationSummary()
@@ -76,4 +78,39 @@
     </tbody>
 </table>
 
+<h2>Add Activity</h2>
+@using (Html.BeginForm("AddActivityToSubject", "Professor", FormMethod.Post))
+{
+    <div class="form-group">
+        <h4>Name:</h4>
+        @Html.TextBoxFor(model => model.CreateActivityModel.Name, new {@class = "form-control"})
+        <h4>MaxGrade:</h4>
+        <input type="number" id="typeNumber" class="form-control" asp-for="CreateActivityModel.MaxGrade"/>
+        <h4>Type:</h4>
+        @Html.DropDownListFor(model => model.CreateActivityModel.Type, @Html.GetEnumSelectList(typeof(EActivityType)))
+        <h4>Subject:</h4>
+        @Html.DropDownListFor(model => model.CreateActivityModel.SubjectId, Model.Subjects.Select(x => new SelectListItem(x.Name, x.Id.ToString())))
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-success">Add</button>
+        </div>
+    </div>
+    @Html.ValidationSummary()
+}
+
+<h2>Add Resource</h2>
+@using (Html.BeginForm("AddResourceToSubject", "Professor", FormMethod.Post))
+{
+    <div class="form-group">
+        <h4>Name:</h4>
+        @Html.TextBoxFor(model => model.CreateResourceModel.Name, new {@class = "form-control"})
+        <h4>Type:</h4>
+        @Html.DropDownListFor(model => model.CreateResourceModel.Type, @Html.GetEnumSelectList(typeof(EResourceType)))
+        <h4>Subject:</h4>
+        @Html.DropDownListFor(model => model.CreateResourceModel.SubjectId, Model.Subjects.Select(x => new SelectListItem(x.Name, x.Id.ToString())))
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-success">Add</button>
+        </div>
+    </div>
+    @Html.ValidationSummary()
+}
 

@@ -107,20 +107,21 @@ public class ProfessorRepository : IProfessorRepository
         return joinDictionary.Values;
     }
 
-    public async Task AddActivityToSubject(CreateActivityDto createActivityModel, CancellationToken ct)
+    public async Task<int> AddActivityToSubject(CreateActivityDto createActivityModel, CancellationToken ct)
     {
-        await QueryExecutionBuilder
+        return await QueryExecutionBuilder
             .ForConnectionManager(_connectionManager)
             .CancelWhen(ct)
             .UseQuery(@"
-                insert into Activity([Type], [Name], MaxGrade, SubjectId)
+                insert into Activity([Type], [Name], MaxGrade, SubjectId, ProfessorId)
                 output inserted.Id
-                values(@type, @name, @maxGrade, @subjectId)")
+                values(@type, @name, @maxGrade, @subjectId, @professorId)")
             .AddParameter("@subjectId", createActivityModel.SubjectId, DbType.Int32)
             .AddParameter("@name", createActivityModel.Name, DbType.String)
             .AddParameter("@type", createActivityModel.Type, DbType.Byte)
             .AddParameter("@maxGrade", createActivityModel.MaxGrade, DbType.Int32)
-            .ExecuteAsync();
+            .AddParameter("@professorId", createActivityModel.ProfessorId, DbType.Int32)
+            .ExecuteScalar<int>();
     }
 
     public async Task AddResourceToSubjectAsync(CreateResourceDto resourceModel, CancellationToken ct)
@@ -207,5 +208,25 @@ public class ProfessorRepository : IProfessorRepository
                 select * from [User] 
                 where [Role] = 2")
             .QueryAsync<UserDto>();
+    }
+
+    public async Task AddActivitiesForStudentsOfGroup(int professorId, int activityId, CancellationToken ct)
+    {
+        await QueryExecutionBuilder
+            .ForConnectionManager(_connectionManager)
+            .CancelWhen(ct)
+            .UseQuery(@"
+                insert into User_Activity(UserId, ActivityId, [Date])
+                select u.Id, @activityId, @date 
+                from Professor p
+                join User_Group ug
+                	on ug.GroupId = p.GroupId
+                join [User] u
+                	on u.Id = ug.UserId
+                where p.UserId = @professorId")
+            .AddParameter("@professorId", professorId, DbType.Int32)
+            .AddParameter("@activityId", activityId, DbType.Int32)
+            .AddParameter("@date", DateTime.Now, DbType.Date)
+            .ExecuteAsync();
     }
 }

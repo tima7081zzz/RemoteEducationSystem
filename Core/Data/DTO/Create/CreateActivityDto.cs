@@ -9,4 +9,5 @@ public class CreateActivityDto
     public string Name { get; set; }
     public int MaxGrade { get; set; }
     public int SubjectId { get; set; }
+    public int ProfessorId { get; set; }
 }
